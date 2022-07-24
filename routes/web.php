@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\PostController;
+use App\Models\Post;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,55 +33,8 @@ Route::get('/about', function () {
 
 
 
-Route::get('/blog', function () {
-    $blog_posts = [
-        [
-            "title" => "Judul Post Pertama",
-            "slug" => "judul-post-pertama",
-            "author" => "Maulana Irfansyah",
-            "body" => "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Incidunt, recusandae error quo nesciunt nulla ut aliquid? Dolore quos minima vero ut alias sunt cum non rerum recusandae repudiandae ab deserunt explicabo quas, a vel earum! Fugit voluptate dolore quasi vitae aliquam ipsam quaerat debitis, molestiae, deserunt consequuntur modi. Et a reiciendis repellat quis officiis ratione! Velit corporis reprehenderit nihil accusantium, temporibus nulla laborum soluta, quidem impedit cum debitis possimus laudantium dicta voluptas excepturi maxime eligendi odio quisquam eum, ullam exercitationem.
-                     Lorem, ipsum dolor sit amet consectetur adipisicing elit. Incidunt, recusandae error quo nesciunt nulla ut aliquid? Dolore quos minima vero ut alias sunt cum non rerum recusandae repudiandae ab deserunt explicabo quas, a vel earum! Fugit voluptate dolore quasi vitae aliquam ipsam quaerat debitis, molestiae, deserunt consequuntur modi. Et a reiciendis repellat quis officiis ratione! Velit corporis reprehenderit nihil accusantium, temporibus nulla laborum soluta, quidem impedit cum debitis possimus laudantium dicta voluptas excepturi maxime eligendi odio quisquam eum, ullam exercitationem."
-        ],
-        [
-            "title" => "Judul Post Kedua",
-            "slug" => "judul-post-kedua",
-            "author" => "Bina Fansyah",
-            "body" => "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Incidunt, recusandae error quo nesciunt nulla ut aliquid? Dolore quos minima vero ut alias sunt cum non rerum recusandae repudiandae ab deserunt explicabo quas, a vel earum! Fugit voluptate dolore quasi vitae aliquam ipsam quaerat debitis, molestiae, deserunt consequuntur modi. Et a reiciendis repellat quis officiis ratione! Velit corporis reprehenderit nihil accusantium, temporibus nulla laborum soluta, quidem impedit cum debitis possimus laudantium dicta voluptas excepturi maxime eligendi odio quisquam eum, ullam exercitationem."
-        ],
-    ];
-    return view('posts', [
-		"title" => "Blog",
-		"posts" => $blog_posts
-	]);
-});
+Route::get('/posts', [PostController::class, 'index']);
 
 // halaman single posts
-Route::get('posts/{slug}', function ($slug) {
-    $blog_posts = [
-        [
-            "title" => "Judul Post Pertama",
-            "slug" => "judul-post-pertama",
-            "author" => "Maulana Irfansyah",
-            "body" => "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Incidunt, recusandae error quo nesciunt nulla ut aliquid? Dolore quos minima vero ut alias sunt cum non rerum recusandae repudiandae ab deserunt explicabo quas, a vel earum! Fugit voluptate dolore quasi vitae aliquam ipsam quaerat debitis, molestiae, deserunt consequuntur modi. Et a reiciendis repellat quis officiis ratione! Velit corporis reprehenderit nihil accusantium, temporibus nulla laborum soluta, quidem impedit cum debitis possimus laudantium dicta voluptas excepturi maxime eligendi odio quisquam eum, ullam exercitationem.
-                     Lorem, ipsum dolor sit amet consectetur adipisicing elit. Incidunt, recusandae error quo nesciunt nulla ut aliquid? Dolore quos minima vero ut alias sunt cum non rerum recusandae repudiandae ab deserunt explicabo quas, a vel earum! Fugit voluptate dolore quasi vitae aliquam ipsam quaerat debitis, molestiae, deserunt consequuntur modi. Et a reiciendis repellat quis officiis ratione! Velit corporis reprehenderit nihil accusantium, temporibus nulla laborum soluta, quidem impedit cum debitis possimus laudantium dicta voluptas excepturi maxime eligendi odio quisquam eum, ullam exercitationem."
-        ],
-        [
-            "title" => "Judul Post Kedua",
-            "slug" => "judul-post-kedua",
-            "author" => "Bina Fansyah",
-            "body" => "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Incidunt, recusandae error quo nesciunt nulla ut aliquid? Dolore quos minima vero ut alias sunt cum non rerum recusandae repudiandae ab deserunt explicabo quas, a vel earum! Fugit voluptate dolore quasi vitae aliquam ipsam quaerat debitis, molestiae, deserunt consequuntur modi. Et a reiciendis repellat quis officiis ratione! Velit corporis reprehenderit nihil accusantium, temporibus nulla laborum soluta, quidem impedit cum debitis possimus laudantium dicta voluptas excepturi maxime eligendi odio quisquam eum, ullam exercitationem."
-        ],
-    ];
+Route::get('posts/{slug}', [PostController::class, 'show']);
 
-    $new_post = [];
-    foreach($blog_posts as $post) {
-        if ($post["slug"] === $slug) {
-            $new_post = $post;
-        }
-    }
-
-    return view('post', [
-        "title" => "Single Post",
-        "post" => $new_post
-    ]);
-});
